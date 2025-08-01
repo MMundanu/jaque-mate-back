@@ -1,12 +1,10 @@
 package jaqueMate.application.service.products;
 
 import com.jaqueMate.application.service.product.GetProductService;
-import com.jaqueMate.application.service.product.UpdateProductService;
 import com.jaqueMate.domain.exceptions.NotFoundException;
 import main.java.com.jaqueMate.domain.model.Product;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 

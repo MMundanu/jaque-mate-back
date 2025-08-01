@@ -1,16 +1,25 @@
 package com.jaqueMate.application.service.product;
 import com.jaqueMate.domain.exceptions.InvalidDataException;
 import com.jaqueMate.domain.exceptions.NotFoundException;
+import com.jaqueMate.domain.model.Categories;
+import com.jaqueMate.domain.port.CategoryRepository;
 import main.java.com.jaqueMate.domain.model.Product;
 import main.java.com.jaqueMate.domain.port.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UpdateProductService {
     private final ProductRepository productRepository;
-
-    public UpdateProductService(ProductRepository productRepository) {
+    private final CategoryRepository categoryRepository;
+    @Autowired
+    public UpdateProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
+
     }
     public void execute(UpdateProductRequest request){
         Optional<Product> oldProduct = productRepository.getProductById(request.getId());
@@ -33,6 +42,16 @@ public class UpdateProductService {
         }
         if (request.getImage() == null || request.getImage().isBlank()){
             throw new InvalidDataException("Image is invalid");
+        }
+
+        List<Categories> categories = categoryRepository.findAll();
+
+
+        boolean exist = categories.stream()
+                .anyMatch(category -> category.getId() == request.getCategoryId());
+
+        if(!exist){
+            throw new InvalidDataException("Category does not exist");
         }
 
         Product product = oldProduct.get();

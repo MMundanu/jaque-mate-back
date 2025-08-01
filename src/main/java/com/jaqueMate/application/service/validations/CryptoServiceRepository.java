@@ -1,10 +1,10 @@
-package jaqueMate.application.service;
+package com.jaqueMate.application.service.validations;
 
 import com.jaqueMate.domain.port.CryptoService;
-import main.java.com.jaqueMate.domain.model.User;
+import org.springframework.stereotype.Service;
 
-
-public class StubCryptoRepository implements CryptoService {
+@Service
+public class CryptoServiceRepository implements CryptoService{
     @Override
     public String hashPassword(String password) {
         return "#hash#" + password;
@@ -17,10 +17,9 @@ public class StubCryptoRepository implements CryptoService {
     }
 
     @Override
-    public String generateJWT(User user) {
+    public String generateJWT(main.java.com.jaqueMate.domain.model.User user) {
         return "JWT{\"id\":" + user.getId() +
                 ",\"email\":\"" + user.getEmail() + "\"" +
                 ",\"role\":\"" + user.getRole().name() + "\"}";
     }
-
 }

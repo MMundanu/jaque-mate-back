@@ -1,16 +1,21 @@
 package com.jaqueMate.application.service.user;
 import com.jaqueMate.application.service.validations.ValidationsUtils;
 import com.jaqueMate.domain.exceptions.InvalidDataException;
+import com.jaqueMate.domain.model.UserRole;
 import com.jaqueMate.domain.port.CryptoService;
 import com.jaqueMate.domain.port.UserRepository;
 import main.java.com.jaqueMate.domain.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class RegisterUserService {
     private final UserRepository userRepository;
     private final CryptoService cryptoService;
 
+    @Autowired
     public RegisterUserService(UserRepository userRepository, CryptoService cryptoService) {
         this.userRepository = userRepository;
         this.cryptoService = cryptoService;
@@ -38,7 +43,7 @@ public class RegisterUserService {
 
         String hashedPassword = cryptoService.hashPassword(request.getPassword());
 
-        User newUser = new User(request.getName(), request.getEmail(), hashedPassword, 0);
+        User newUser = new User(request.getName(), request.getEmail(), hashedPassword, UserRole.USER);
 
         userRepository.save(newUser);
 

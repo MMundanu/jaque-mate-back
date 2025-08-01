@@ -3,11 +3,15 @@ package com.jaqueMate.application.service.product;
 import com.jaqueMate.domain.exceptions.NotFoundException;
 import main.java.com.jaqueMate.domain.port.ProductRepository;
 import main.java.com.jaqueMate.domain.model.Product;
-import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+@Service
 public class DeleteProductService {
     private final ProductRepository productRepository;
 
+    @Autowired
     public DeleteProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
